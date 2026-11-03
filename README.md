@@ -1,167 +1,170 @@
 # Equity Research Skill
 
-[Chinese documentation](README.zh-CN.md)
+**English** / [中文版本](README.zh-CN.md)
 
-An AI agent skill for researching listed companies and producing evidence-backed investment reports. It connects **business economics → financial quality → independent forecasts → valuation → investment judgment**.
+Turn company filings, financial results and market evidence into a complete equity research report—with an investment thesis, independent forecasts, valuation scenarios and a clear judgment at the observed share price.
 
-Use it to understand a business, assess its earnings and cash prospects, and judge whether the prospective return justifies the observed share price. The framework adapts to a company's operating stage and economics; it does not prescribe one valuation model, earnings year, multiple, or rating for every company.
+Built for **Codex, Claude Code, Cursor and other agents that support Agent Skills**. The framework adapts to the company's business model and operating stage. Reports follow your conversation language unless you request another language.
 
-The skill is written in English. Reports follow your requested language, or the language of your conversation.
+## What you get
 
-## What it produces
+A simple request for a company report starts a complete research assignment by default.
 
-An ordinary request for a company report defaults to a complete initiation report with:
+| Deliverable | What it contains |
+|---|---|
+| **Investment conclusion** | Business quality, earnings outlook and price attractiveness; one main rating, its rationale and what would change the judgment |
+| **Complete report** | 17 sections covering the business, financial statements, forecasts, competition, valuation, catalysts and risks |
+| **Valuation scenarios** | Bear, representative base and bull prices for a stated horizon, normally 12 months; expected returns and separately labeled sensitivities |
+| **Supporting workpapers** | Sources, financial reconciliations, forecast assumptions, valuation calculations and coverage checks |
 
-- **17 research sections**, from the investment conclusion and business model to financial analysis, forecasts, competition, valuation, catalysts, risks and falsification.
-- **Eight financial-statement capabilities**, with the relevant calculations and investment implications.
-- A clear investment judgment tied to an observed price and stated horizon, normally about 12 months.
-- Bear, representative base and bull target prices, with sensitivity intervals distinguished from economic scenarios.
-- Supporting workpapers with sources, definitions, forecast and valuation workings, and coverage/consistency checks.
+The main report explains the decision. Workpapers make the supporting analysis traceable. Request Markdown, HTML or another format your agent can produce; the included [report template](assets/brief-template.md) defines the content rather than a fixed visual design.
 
-The report carries the decisive reasoning; workpapers hold detailed checks. For multiple companies, each receives a standalone analysis. Earnings updates, price refreshes and document reviews are also supported without requiring a full initiation every time.
+## Quick start
 
-Output format is flexible: ask for Markdown, HTML or another format supported by your agent. This repository supplies a report template, not a fixed renderer or a market-data service.
+### 1. Install for your agent
 
-## Installation
-
-### Requirements
-
-Use an agent that can load `SKILL.md` and read its supporting files. Current research also requires access to recent filings, prices and news through the agent's browsing or data tools, plus a way to perform and save calculations. The skill does not supply paid data subscriptions, API credentials, or browsing capabilities.
-
-No package manager, MCP server, or model-specific runtime is required by the skill itself. Git is needed only for the clone method below; downloading the repository ZIP is an alternative.
-
-### 1. Download
-
-```sh
-git clone https://github.com/xdnloveme/equity-research-skill.git
-cd equity-research-skill
-```
-
-The repository root is the skill package. Install `SKILL.md` together with `references/`, `assets/` and `agents/` into a folder named **`equity-research-brief`**; copying only `SKILL.md` leaves the framework incomplete.
-
-### 2. Choose your agent and scope
-
-| Agent | Personal installation root | Project installation root | Explicit invocation |
-|---|---|---|---|
-| Codex | `~/.agents/skills/` | `<project>/.agents/skills/` | `$equity-research-brief` |
-| Claude Code | `~/.claude/skills/` | `<project>/.claude/skills/` | `/equity-research-brief` |
-| Cursor | `~/.cursor/skills/` | `<project>/.cursor/skills/` | Type `/` and select the skill |
-
-These locations and invocation conventions follow the official [Codex](https://developers.openai.com/codex/skills/), [Claude Code](https://code.claude.com/docs/en/skills) and [Cursor](https://cursor.com/docs/skills) documentation. Local installation does not automatically install a skill in remote or cloud sessions; follow your host's deployment instructions there.
-
-For macOS/Linux, from the cloned repository, select one root and copy:
-
-```sh
-# Codex; change to "$HOME/.claude/skills" for Claude Code
-# or "$HOME/.cursor/skills" for Cursor.
-skill_root="$HOME/.agents/skills"
-mkdir -p "$skill_root"
-# Do not overwrite an existing installation without reviewing it.
-if [ -e "$skill_root/equity-research-brief" ]; then
-  echo "An installation already exists. Review it before updating."
-else
-  mkdir "$skill_root/equity-research-brief" &&
-    cp -R SKILL.md references assets agents "$skill_root/equity-research-brief/"
-fi
-```
-
-For a project installation, set `skill_root` to the corresponding directory in your project. On Windows, create an `equity-research-brief` folder under your chosen installation root and copy `SKILL.md`, `references/`, `assets/` and `agents/` into it; `~` means your user home directory. If the agent runs in WSL, a container or a remote machine, install inside that environment.
-
-The result should be `<installation-root>/equity-research-brief/SKILL.md`. Start a new agent session if the skill is not discovered immediately, then check that it appears in the available skills.
-
-### Other agents
-
-Agents supporting the [Agent Skills format](https://agentskills.io/specification) can use the same package in their documented skill directory. `agents/openai.yaml` is optional Codex UI metadata; the research instructions do not depend on it. Tool availability and skill discovery differ by host. These installation routes are documented compatibility, not a claim that every host/model has passed an end-to-end research test.
-
-If your tool does not support skill discovery but can read local files, point it to `SKILL.md` and ask it to follow the linked references and template. This is manual use, not automatic installation.
-
-## Usage
-
-After installation, invoke the skill and make an ordinary research request.
+Choose one command for a personal installation. Git must be installed; an existing destination will not be overwritten.
 
 **Codex**
 
-```text
-Use $equity-research-brief to produce a complete research report on
-[company] ([ticker], [exchange]). Use the latest available financial
-results, share price and material news. Write in English and save an
-HTML report with linked workpapers and reproducible calculations.
+```sh
+git clone https://github.com/xdnloveme/equity-research-skill.git "$HOME/.agents/skills/equity-research-brief"
 ```
 
 **Claude Code**
 
-```text
-/equity-research-brief Research [company] ([ticker], [exchange]) using
-the latest available information. Deliver a complete report in English
-with supporting workpapers.
+```sh
+git clone https://github.com/xdnloveme/equity-research-skill.git "$HOME/.claude/skills/equity-research-brief"
 ```
 
-**Cursor or another compatible agent**
+**Cursor**
 
-Select `equity-research-brief` in the skill menu, then ask:
-
-```text
-Produce separate complete research reports on [company A] and
-[company B], using the latest available information.
+```sh
+git clone https://github.com/xdnloveme/equity-research-skill.git "$HOME/.cursor/skills/equity-research-brief"
 ```
 
-Useful variations:
+The repository is named `equity-research-skill`; the installed skill and invocation name are **`equity-research-brief`**.
 
-- **Earnings update:** “Update the research after the latest results; explain what changed in the thesis, forecast and valuation.”
-- **Price refresh:** “Refresh the investment judgment at the latest price and check for material news since the report.”
-- **Historical research:** “Analyze the company using only information published by [date/time/timezone].”
-- **Report review:** “Review this report's evidence, financial reasoning and valuation assumptions.”
+For a project-only installation, use the corresponding directory below instead. These locations follow the linked official documentation.
 
-Specify the ticker, exchange and share class when ambiguous. You can also specify the horizon, output language, format or your institution's rating policy. You do not need to repeat the 17-section structure or request the eight capabilities separately.
+| Agent | Project directory | How to invoke |
+|---|---|---|
+| [Codex](https://developers.openai.com/codex/skills/) | `.agents/skills/equity-research-brief/` | `$equity-research-brief` |
+| [Claude Code](https://code.claude.com/docs/en/skills) | `.claude/skills/equity-research-brief/` | `/equity-research-brief` |
+| [Cursor](https://cursor.com/docs/skills) | `.cursor/skills/equity-research-brief/` | Type `/` and select `equity-research-brief` |
+
+**Without Git:** download the repository ZIP, extract it, rename the extracted folder to `equity-research-brief`, and place it in your agent's skill directory. Keep `SKILL.md`, `references/`, `assets/` and `agents/` together.
+
+Start a new session if the skill is not immediately discovered. For WSL, containers or remote sessions, install in the environment where the agent runs. Avoid duplicate installations in personal and project directories.
+
+### 2. Ask for a report
+
+In Codex:
+
+```text
+Use $equity-research-brief to research [company] ([ticker], [exchange]).
+Use the latest available financial results, share price and material news.
+Deliver a complete report in English, with supporting workpapers.
+```
+
+In Claude Code, start the request with `/equity-research-brief`. In Cursor, select the skill before sending the request.
+
+That's enough to request the full framework. Specify the share class when ambiguous; optionally add an output format, investment horizon or your institution's rating policy. You do not need to repeat the module list or financial-analysis requirements.
+
+## How the research works
+
+**Business economics → financial quality → independent forecasts → valuation → investment judgment.**
+
+- **Primary evidence first.** Start with filings, financial statements and company disclosures. Use institutional views afterward to challenge the independent forecast and valuation.
+- **Explain the business mechanism.** Connect demand, competitive advantage and execution to revenue, profit, capital needs and shareholder cash flows.
+- **Choose valuation tools for the company.** Use multiples, DCF, segment valuation or other methods when their inputs and economic fit support them. No fixed PE, earnings year or model applies to every company.
+- **Make a judgment, then test it.** Explain the representative base and main conclusion. Bear/bull scenarios and sensitivities show what could change; they do not replace the judgment.
+- **Keep the evidence current and consistent.** Refresh material news and prices before delivery, match earnings periods to valuation multiples, and reconcile the report with its calculations.
+
+Detailed research requirements live in [SKILL.md](SKILL.md) and its references. The README is an introduction and setup guide, not a second rulebook.
 
 ## Research coverage
 
-| Sections | Focus |
+<details>
+<summary><strong>17 report sections</strong></summary>
+
+| ID | Section |
 |---|---|
-| M01–M02 | Investment decision; company and security snapshot |
-| M03–M05 | Business model; revenue mix; investment theses and expectations gap |
-| M06–M08 | Latest results; guidance; independent forecasts |
-| M09–M12 | Commercialization roadmap; capital and cash; dependencies; competition |
-| M13 | Valuation, price attractiveness and one main rating |
-| M14–M17 | Catalysts; risks; contrary case and falsification; synthesis and logic map |
-| M00 / workpapers | Scope, sources, definitions, calculations and validation evidence |
+| M01 | Investment conclusion and rating |
+| M02 | Company and security snapshot |
+| M03 | Business model and value creation |
+| M04 | Revenue mix and growth sources |
+| M05 | Investment theses and expectations gap |
+| M06 | Latest results and earnings trend |
+| M07 | Management guidance and near-term outlook |
+| M08 | Independent forecast and expectations bridge |
+| M09 | Product, technology and commercialization roadmap |
+| M10 | Capital allocation, geographic footprint, cash flow and resilience |
+| M11 | Customer, geographic and supply dependencies |
+| M12 | Competition and competitive advantage |
+| M13 | Valuation, price and dynamic rating |
+| M14 | Catalysts and monitoring KPIs |
+| M15 | Principal risks and loss scenarios |
+| M16 | Contrary case and falsification |
+| M17 | Final conclusion and investment logic map |
 
-The eight financial capabilities are:
+M00 defines research scope, data definitions and evidence records in the header and supporting workpapers. It is not an additional narrative section.
 
-1. Definitions and statement reconciliation.
-2. Revenue growth attribution.
-3. Margins and operating leverage.
-4. Earnings quality and accounting judgments.
-5. Cash flow and working capital.
-6. Investment, capital returns and growth quality.
-7. Balance sheet and funding resilience.
-8. Earnings surprise and independent forecasting.
+</details>
 
-The framework starts with primary evidence and independent reasoning, then uses institutional views to challenge the conclusion. Valuation methods—including multiples, DCF, SOTP and asset-based approaches—are selected for economic fit and evidence quality. Earnings periods and multiples must be matched; a later earnings year does not automatically justify a higher target price.
+<details>
+<summary><strong>Eight financial-statement capabilities</strong></summary>
 
-## Repository layout
+| ID | Capability |
+|---|---|
+| F01 | Definitions and statement reconciliation |
+| F02 | Revenue growth attribution |
+| F03 | Margins and operating leverage |
+| F04 | Earnings quality and accounting judgments |
+| F05 | Cash flow and working capital |
+| F06 | Investment, capital returns and growth quality |
+| F07 | Balance sheet and funding resilience |
+| F08 | Earnings surprise and independent forecasting |
 
-```text
-equity-research-skill/
-├── README.md
-├── README.zh-CN.md
-├── SKILL.md
-├── agents/openai.yaml
-├── assets/brief-template.md
-└── references/
-    ├── research-modules.md
-    ├── financial-analysis.md
-    ├── valuation-rating.md
-    ├── information-freshness.md
-    └── business-adaptation.md
+Each capability connects its findings and calculations to the forecast or investment judgment. Detailed workings belong in the linked workpapers.
+
+</details>
+
+## More ways to use it
+
+After invoking the skill:
+
+| Task | Example request |
+|---|---|
+| Multiple companies | “Produce separate complete reports on [company A] and [company B].” |
+| Earnings update | “Update the report after the latest results. Explain changes to the thesis, forecast and valuation.” |
+| Price refresh | “Refresh the investment judgment at the latest price and check material events since the report.” |
+| Historical research | “Use only information published by [date, time and timezone].” |
+| Report review | “Review this report's evidence, financial reasoning and valuation assumptions.” |
+
+## Files and portability
+
+| File or directory | Purpose |
+|---|---|
+| [SKILL.md](SKILL.md) | Entry point, research workflow and delivery checks |
+| [references/](references/) | Research modules, financial analysis, valuation, information freshness and business adaptation |
+| [assets/brief-template.md](assets/brief-template.md) | Report and workpaper template |
+| [agents/openai.yaml](agents/openai.yaml) | Optional Codex interface metadata; not required by the research framework |
+
+The package uses the [Agent Skills format](https://agentskills.io/specification), with no required proprietary runtime or MCP server. Other compatible agents can load it from their documented skill directories. An agent without skill discovery can use it manually by reading `SKILL.md` and its linked resources. Host compatibility does not mean identical research quality across models or tools.
+
+## Updates
+
+For a Git installation, run this inside the installed `equity-research-brief` directory:
+
+```sh
+git pull --ff-only
 ```
 
-The repository contains the reusable framework and template, not historical company reports, private source documents, credentials, or research-session files. Research rules live in the skill; this README explains installation and use.
+Review changes and preserve local customizations before updating. For ZIP or copied installations, replace the installed package with a newly downloaded copy instead.
 
-## Updating and limitations
+## Requirements and limitations
 
-Run `git pull --ff-only` in your downloaded repository, review changes, then replace your installed skill folder with the updated package after preserving any local customizations. Avoid keeping conflicting copies of the same skill in multiple discovery locations.
+The agent needs access to financial disclosures, current prices and news, plus tools for calculations and file output. Data subscriptions, credentials and browsing capabilities are not included.
 
-The skill is a research method, not a deterministic valuation engine. Results depend on the model, available evidence, tools and execution. Its checks support review but do not guarantee complete facts, identical forecasts across runs, or investment performance. Scenario endpoints are conditional estimates, not guaranteed price floors or ceilings. Ratings use the definitions in `references/valuation-rating.md` unless you specify another policy.
-
-Review generated analysis before making financial decisions. The skill does not execute trades.
+This is a research framework, not a deterministic valuation engine or trading system. Results still require review; scenario endpoints are conditional estimates, not guaranteed price floors or ceilings. Ratings follow the [published conventions](references/valuation-rating.md) unless you specify another policy. The skill does not execute trades or guarantee investment returns.

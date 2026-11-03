@@ -1,163 +1,170 @@
 # Equity Research Skill
 
-[English documentation](README.md)
+[English](README.md) / **中文版本**
 
-面向上市公司研究的通用 AI Agent Skill，帮助研究者形成有依据的个股投资判断。研究主线是：**商业模式 → 财务质量 → 独立预测 → 估值 → 投资结论**。
+将公司公告、财报和市场信息转化为完整的个股研究报告，给出有依据的投资逻辑、独立盈利预测、估值情景，以及结合当前股价的投资判断。
 
-它用于理解公司如何创造价值、判断盈利和现金回报前景，并结合当前股价评估预期回报是否合理。框架会根据经营阶段和业务经济特征选择研究重点与估值工具，不为所有公司固定盈利年份、估值倍数或评级。
+适用于 **Codex、Claude Code、Cursor 及其他支持 Agent Skills 的工具**。框架根据公司的商业模式和经营阶段调整研究重点。报告默认使用当前对话语言，也可以单独指定。
 
-skill 本体使用英文维护；报告遵循你指定的语言，未指定时使用当前对话语言。
+## 你会得到什么
 
-## 可以得到什么
+提出普通的个股研报请求，默认就会启动完整研究。
 
-普通的个股研报请求默认交付完整研究，包括：
+| 交付内容 | 包含什么 |
+|---|---|
+| **投资结论** | 区分公司质量、盈利前景和价格吸引力，给出一个主评级、判断依据及改变结论的条件 |
+| **完整研报** | 17 个模块，覆盖商业模式、财务表现、独立预测、竞争、估值、催化剂与风险 |
+| **估值情景** | 明确期限内的悲观、代表性基准和乐观价格，默认期限为 12 个月；计算预期回报，单独展示敏感性区间 |
+| **研究底稿** | 数据来源、财务勾稽、预测假设、估值计算和覆盖检查，便于复核 |
 
-- **17 个研究模块**：投资结论、商业模式、财务表现、独立预测、竞争、估值、催化剂、风险及反证。
-- **八项财报分析能力**：保留相关计算、推导和投资含义。
-- 围绕明确股价与持有期的投资判断，默认评估约 12 个月的预期总回报。
-- 悲观、代表性基准和乐观目标价，并将情景区间与参数敏感性区间区分。
-- 包含来源、口径、模型计算及完整性和一致性检查的配套底稿。
+正文解释为什么得出这个结论，底稿保留可追溯的分析依据。可以指定 Markdown、HTML 或当前工具支持的其他格式；内置[简报模板](assets/brief-template.md)规定研究内容，不限定视觉样式。
 
-正文保留影响判断的关键依据，详细核对放在底稿。多公司研究应分别交付完整分析，也支持财报更新、价格刷新和已有研报审查。
+## 快速开始
 
-可以指定 Markdown、HTML 或当前工具支持的其他格式。仓库提供研究框架和简报模板，不包含固定渲染器或行情数据服务。
+### 1. 安装到你的 AI 工具
 
-## 安装
-
-### 使用条件
-
-需要能够加载 `SKILL.md` 并读取关联文件的 AI 工具。实时研究还需要该工具能够通过浏览或数据接口获取最新财报、股价和新闻，并能够进行和保存计算。skill 不附带付费数据订阅、API 密钥或浏览能力。
-
-skill 本身不依赖特定模型、MCP 服务或包管理器。下面的克隆方式需要 Git，也可以下载仓库 ZIP 后解压。
-
-### 1. 下载仓库
-
-```sh
-git clone https://github.com/xdnloveme/equity-research-skill.git
-cd equity-research-skill
-```
-
-仓库根目录就是 skill 安装包。请将 `SKILL.md`、`references/`、`assets/` 和 `agents/` 一起放入名为 **`equity-research-brief`** 的安装文件夹，不要只复制 `SKILL.md`。
-
-### 2. 选择工具和安装范围
-
-| 工具 | 个人安装根目录 | 项目安装根目录 | 显式调用 |
-|---|---|---|---|
-| Codex | `~/.agents/skills/` | `<project>/.agents/skills/` | `$equity-research-brief` |
-| Claude Code | `~/.claude/skills/` | `<project>/.claude/skills/` | `/equity-research-brief` |
-| Cursor | `~/.cursor/skills/` | `<project>/.cursor/skills/` | 输入 `/` 并选择 skill |
-
-安装目录和调用方式依据 [Codex](https://developers.openai.com/codex/skills/)、[Claude Code](https://code.claude.com/docs/en/skills) 和 [Cursor](https://cursor.com/docs/skills) 官方文档。个人本机安装不会自动部署到远程或云端会话，后者需按对应工具的部署方式配置。
-
-macOS/Linux 在克隆后的仓库目录执行：
-
-```sh
-# Codex; use "$HOME/.claude/skills" for Claude Code
-# or "$HOME/.cursor/skills" for Cursor.
-skill_root="$HOME/.agents/skills"
-mkdir -p "$skill_root"
-if [ -e "$skill_root/equity-research-brief" ]; then
-  echo "An installation already exists. Review it before updating."
-else
-  mkdir "$skill_root/equity-research-brief" &&
-    cp -R SKILL.md references assets agents "$skill_root/equity-research-brief/"
-fi
-```
-
-项目安装时，将 `skill_root` 改为项目内相应的目录。Windows 可以在安装根目录下新建 `equity-research-brief` 文件夹，再复制 `SKILL.md`、`references/`、`assets/` 和 `agents/` 到其中；`~` 表示用户主目录。使用 WSL、容器或远程机器时，应安装到 AI 工具实际运行的环境中。
-
-安装后的文件应位于 `<安装根目录>/equity-research-brief/SKILL.md`。如果未立即发现 skill，开启新的工具会话，并在可用技能列表中确认。
-
-### 其他 AI 工具
-
-支持 [Agent Skills 格式](https://agentskills.io/specification) 的工具，可以将同一安装包放入其官方支持的 skill 目录。`agents/openai.yaml` 只是可选的 Codex 界面元数据，研究逻辑不依赖它。
-
-以上是文档支持的安装适配，不代表已在每一种工具或模型中完成端到端研报测试。发现方式、数据和计算工具的可用性仍取决于宿主。
-
-若工具不支持技能发现但能读取本地文件，可以指定 `SKILL.md`，要求它读取关联参考文件和模板。这属于手动使用，不等于自动安装。
-
-## 使用示例
+选择一条命令进行个人安装。需要已安装 Git；目标目录已存在时，克隆操作不会覆盖它。
 
 **Codex**
 
-```text
-使用 $equity-research-brief 为[公司名]（[代码]、[交易所]）出一份完整研报。
-财报、股价和重要新闻使用最新可获取的信息，用中文输出 HTML 报告，
-附上关联底稿和可复核的计算。
+```sh
+git clone https://github.com/xdnloveme/equity-research-skill.git "$HOME/.agents/skills/equity-research-brief"
 ```
 
 **Claude Code**
 
-```text
-/equity-research-brief 为[公司名]（[代码]、[交易所]）出一份完整研报，
-使用最新可获取的信息，用中文输出，并附上研究底稿。
+```sh
+git clone https://github.com/xdnloveme/equity-research-skill.git "$HOME/.claude/skills/equity-research-brief"
 ```
 
-**Cursor 或其他兼容工具**
+**Cursor**
 
-在技能菜单中选择 `equity-research-brief`，然后提出普通请求：
-
-```text
-分别为[公司 A]和[公司 B]出完整研报，使用最新可获取的信息。
+```sh
+git clone https://github.com/xdnloveme/equity-research-skill.git "$HOME/.cursor/skills/equity-research-brief"
 ```
 
-其他常用请求：
+仓库名是 `equity-research-skill`，安装后的技能名和调用名是 **`equity-research-brief`**。
 
-- **财报更新**：“根据最新财报更新研究，说明投资逻辑、预测和估值发生了哪些变化。”
-- **价格刷新**：“按最新股价更新投资判断，并检查报告发布后是否发生重大事件。”
-- **历史研究**：“仅使用[日期、时间及时区]之前已公开的信息分析该公司。”
-- **研报审查**：“审查这份研报的数据依据、财务推导和估值假设。”
+如果只想在某个项目中使用，改用下表中的项目目录。目录和调用方式可对照链接中的官方文档。
 
-公司有歧义时，说明代码、交易所和股份类别。你也可以指定持有期、输出语言、格式或机构自己的评级政策，无需每次重述 17 个模块和八项财报能力。
+| 工具 | 项目安装目录 | 调用方式 |
+|---|---|---|
+| [Codex](https://developers.openai.com/codex/skills/) | `.agents/skills/equity-research-brief/` | `$equity-research-brief` |
+| [Claude Code](https://code.claude.com/docs/en/skills) | `.claude/skills/equity-research-brief/` | `/equity-research-brief` |
+| [Cursor](https://cursor.com/docs/skills) | `.cursor/skills/equity-research-brief/` | 输入 `/` 并选择 `equity-research-brief` |
+
+**不使用 Git：**下载仓库 ZIP，解压后将文件夹改名为 `equity-research-brief`，放入对应工具的技能目录。保留完整的 `SKILL.md`、`references/`、`assets/` 和 `agents/`。
+
+如果没有立即发现技能，请新开一个会话。使用 WSL、容器或远程会话时，应安装到工具实际运行的环境中。避免在个人与项目目录中重复安装。
+
+### 2. 提出研究请求
+
+在 Codex 中：
+
+```text
+使用 $equity-research-brief 研究[公司名]（[股票代码]、[交易所]）。
+财报、股价和重要新闻使用最新可获取的信息。
+用中文输出完整研报，并附上研究底稿。
+```
+
+Claude Code 中以 `/equity-research-brief` 开头提出请求；Cursor 中先选择该技能，再发送研究请求。
+
+这样就会使用完整框架，无需反复强调模块数量或财报分析要求。存在歧义时请说明股份类别；也可以补充报告格式、持有期限或机构自己的评级政策。
+
+## 它如何开展研究
+
+**商业模式 → 财务质量 → 独立预测 → 估值 → 投资判断。**
+
+- **先看原始证据。**从公告、财务报表和公司披露出发，先独立推导，再用机构观点核对和挑战预测与估值。
+- **解释经营机制。**把需求、竞争优势和执行进展，连接到收入、利润、资本需求和股东现金回报。
+- **按公司特点选择估值工具。**倍数估值、DCF、分部估值等方法取决于经济适用性与证据质量，不固定 PE、盈利年份或模型。
+- **先形成判断，再检验替代情景。**说明为什么选择这一基准、为什么得出主结论；悲观、乐观和敏感性分析用于检验判断，而不是替代判断。
+- **保持实时性与口径一致。**交付前刷新重大新闻和股价，匹配盈利窗口与估值倍数，核对正文和计算结果。
+
+具体研究要求由 [SKILL.md](SKILL.md) 及其参考文件维护。README 负责介绍和上手，不另外定义一套规则。
 
 ## 研究覆盖
 
-| 模块 | 内容 |
+<details>
+<summary><strong>17 个正文模块</strong></summary>
+
+| 编号 | 模块 |
 |---|---|
-| M01–M02 | 投资判断；公司与证券概况 |
-| M03–M05 | 商业模式；收入结构；投资逻辑和预期差 |
-| M06–M08 | 最新业绩；管理层指引；独立预测 |
-| M09–M12 | 商业化路线；资本与现金；业务依赖；竞争优势 |
-| M13 | 估值、价格吸引力和主评级 |
-| M14–M17 | 催化剂；风险；反证；总结与逻辑图 |
-| M00 / 底稿 | 研究范围、来源、定义、计算及检查证据 |
+| M01 | 投资结论与评级 |
+| M02 | 公司与证券概况 |
+| M03 | 商业模式与价值创造 |
+| M04 | 收入结构与增长来源 |
+| M05 | 投资逻辑与预期差 |
+| M06 | 最新业绩与盈利趋势 |
+| M07 | 管理层指引与近期展望 |
+| M08 | 独立预测与市场预期对照 |
+| M09 | 产品、技术及商业化路线 |
+| M10 | 资本配置、地域布局、现金流与韧性 |
+| M11 | 客户、地域与供应依赖 |
+| M12 | 竞争格局与竞争优势 |
+| M13 | 估值、价格与动态评级 |
+| M14 | 催化剂与跟踪指标 |
+| M15 | 主要风险与损失情景 |
+| M16 | 相反观点与证伪条件 |
+| M17 | 最终结论与投资逻辑图 |
 
-八项财报能力包括：
+M00 负责研究范围、数据定义与证据记录，体现在报告头部和底稿中，不额外增加正文模块。
 
-1. 口径定义与财务报表勾稽。
-2. 收入增长归因。
-3. 利润率与经营杠杆。
-4. 盈利质量与会计判断。
-5. 现金流与营运资本。
-6. 投入、资本回报与增长质量。
-7. 资产负债表与融资韧性。
-8. 业绩预期差与独立预测。
+</details>
 
-先从原始证据独立推导，再使用机构观点核对和挑战结论。倍数估值、DCF、分部估值和资产法等工具按经济适用性与证据质量选择。盈利窗口必须与估值倍数匹配，采用更远期的盈利不自动意味着更高目标价。
+<details>
+<summary><strong>八项财报分析能力</strong></summary>
 
-## 仓库结构
+| 编号 | 分析能力 |
+|---|---|
+| F01 | 口径定义与财务报表勾稽 |
+| F02 | 收入增长归因 |
+| F03 | 利润率与经营杠杆 |
+| F04 | 盈利质量与会计判断 |
+| F05 | 现金流与营运资本 |
+| F06 | 投入、资本回报与增长质量 |
+| F07 | 资产负债表与融资韧性 |
+| F08 | 业绩预期差与独立预测 |
 
-```text
-equity-research-skill/
-├── README.md
-├── README.zh-CN.md
-├── SKILL.md
-├── agents/openai.yaml
-├── assets/brief-template.md
-└── references/
-    ├── research-modules.md
-    ├── financial-analysis.md
-    ├── valuation-rating.md
-    ├── information-freshness.md
-    └── business-adaptation.md
+每项能力都将分析发现和计算结果连接到预测或投资判断；详细推导保留在关联底稿中。
+
+</details>
+
+## 更多用法
+
+调用 skill 后，可以这样提出请求：
+
+| 任务 | 请求示例 |
+|---|---|
+| 多公司研究 | “分别为[公司 A]和[公司 B]出完整研报。” |
+| 财报更新 | “根据最新财报更新报告，说明投资逻辑、预测和估值发生了哪些变化。” |
+| 价格刷新 | “按最新股价更新投资判断，并检查报告发布后的重大事件。” |
+| 历史研究 | “仅使用[日期、时间及时区]之前已公开的信息。” |
+| 研报审查 | “审查这份报告的证据、财务推导和估值假设。” |
+
+## 文件与通用性
+
+| 文件或目录 | 用途 |
+|---|---|
+| [SKILL.md](SKILL.md) | 入口、研究流程与交付检查 |
+| [references/](references/) | 研究模块、财报分析、估值、信息实时性和业务适配方法 |
+| [assets/brief-template.md](assets/brief-template.md) | 研报与底稿模板 |
+| [agents/openai.yaml](agents/openai.yaml) | 可选的 Codex 界面元数据，研究框架不依赖它 |
+
+安装包采用 [Agent Skills 格式](https://agentskills.io/specification)，不要求专属运行时或特定 MCP 服务。其他兼容工具可以放入其官方支持的技能目录。不支持自动发现技能的工具，也可以通过读取 `SKILL.md` 及关联文件手动使用。格式兼容不代表所有模型和工具的研究质量完全一致。
+
+## 更新
+
+通过 Git 安装时，在已安装的 `equity-research-brief` 目录中执行：
+
+```sh
+git pull --ff-only
 ```
 
-仓库仅包含通用框架、模板与使用文档，不包含历史个股研报、私有源文件、凭据或研究会话的临时文件。研究要求由 skill 本体维护，README 负责介绍与安装使用说明。
+更新前审阅变化并保留本地自定义修改。通过 ZIP 或复制安装时，重新下载并替换安装包即可。
 
-## 更新与能力边界
+## 使用条件与边界
 
-在下载的仓库中执行 `git pull --ff-only`，审阅变化，保留已有自定义修改后，用最新安装包替换已安装的文件夹。避免在多个技能发现目录中保留冲突版本。
+AI 工具需要能获取财务披露、最新股价和新闻，并具备计算和文件输出能力。数据订阅、访问凭据及浏览能力不包含在 skill 中。
 
-skill 是研究方法，不是确定性估值程序。结果取决于模型、证据、工具和执行情况，检查机制不能保证重大事实永不遗漏、不同运行预测完全相同或投资收益。情景上下限是有条件的估值结果，不是股价保证底线或上限。除非另行指定，评级使用 `references/valuation-rating.md` 中的定义。
-
-投资决策前仍需审阅生成的分析。skill 不执行交易。
+这是研究框架，不是确定性估值程序或交易系统，生成结果仍需审阅。情景上下限是有条件的估值，不是股价保证底线或上限。除非另行指定，评级遵循[公开的评级口径](references/valuation-rating.md)。skill 不执行交易，也不保证投资收益。
