@@ -37,7 +37,7 @@ git clone https://github.com/xdnloveme/equity-research-skill.git
 cd equity-research-skill
 ```
 
-实际安装包是 **`skills/equity-research-brief/`**。请复制整个文件夹，包含 `references/`、`assets/` 和 `agents/`，不要只复制 `SKILL.md`。
+仓库根目录就是 skill 安装包。请将 `SKILL.md`、`references/`、`assets/` 和 `agents/` 一起放入名为 **`equity-research-brief`** 的安装文件夹，不要只复制 `SKILL.md`。
 
 ### 2. 选择工具和安装范围
 
@@ -59,11 +59,12 @@ mkdir -p "$skill_root"
 if [ -e "$skill_root/equity-research-brief" ]; then
   echo "An installation already exists. Review it before updating."
 else
-  cp -R skills/equity-research-brief "$skill_root/"
+  mkdir "$skill_root/equity-research-brief" &&
+    cp -R SKILL.md references assets agents "$skill_root/equity-research-brief/"
 fi
 ```
 
-项目安装时，将 `skill_root` 改为项目内相应的目录。Windows 可以通过文件管理器复制同一个文件夹，`~` 表示用户主目录。使用 WSL、容器或远程机器时，应安装到 AI 工具实际运行的环境中。
+项目安装时，将 `skill_root` 改为项目内相应的目录。Windows 可以在安装根目录下新建 `equity-research-brief` 文件夹，再复制 `SKILL.md`、`references/`、`assets/` 和 `agents/` 到其中；`~` 表示用户主目录。使用 WSL、容器或远程机器时，应安装到 AI 工具实际运行的环境中。
 
 安装后的文件应位于 `<安装根目录>/equity-research-brief/SKILL.md`。如果未立即发现 skill，开启新的工具会话，并在可用技能列表中确认。
 
@@ -73,7 +74,7 @@ fi
 
 以上是文档支持的安装适配，不代表已在每一种工具或模型中完成端到端研报测试。发现方式、数据和计算工具的可用性仍取决于宿主。
 
-若工具不支持技能发现但能读取本地文件，可以指定 `skills/equity-research-brief/SKILL.md`，要求它读取关联参考文件和模板。这属于手动使用，不等于自动安装。
+若工具不支持技能发现但能读取本地文件，可以指定 `SKILL.md`，要求它读取关联参考文件和模板。这属于手动使用，不等于自动安装。
 
 ## 使用示例
 
@@ -137,9 +138,9 @@ fi
 ## 仓库结构
 
 ```text
-README.md
-README.zh-CN.md
-skills/equity-research-brief/
+equity-research-skill/
+├── README.md
+├── README.zh-CN.md
 ├── SKILL.md
 ├── agents/openai.yaml
 ├── assets/brief-template.md

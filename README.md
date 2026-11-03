@@ -37,7 +37,7 @@ git clone https://github.com/xdnloveme/equity-research-skill.git
 cd equity-research-skill
 ```
 
-The installable package is **`skills/equity-research-brief/`**. Copy the whole folder, including `references/`, `assets/` and `agents/`; copying only `SKILL.md` leaves the framework incomplete.
+The repository root is the skill package. Install `SKILL.md` together with `references/`, `assets/` and `agents/` into a folder named **`equity-research-brief`**; copying only `SKILL.md` leaves the framework incomplete.
 
 ### 2. Choose your agent and scope
 
@@ -60,11 +60,12 @@ mkdir -p "$skill_root"
 if [ -e "$skill_root/equity-research-brief" ]; then
   echo "An installation already exists. Review it before updating."
 else
-  cp -R skills/equity-research-brief "$skill_root/"
+  mkdir "$skill_root/equity-research-brief" &&
+    cp -R SKILL.md references assets agents "$skill_root/equity-research-brief/"
 fi
 ```
 
-For a project installation, set `skill_root` to the corresponding directory in your project. On Windows, copy the same folder with your file manager; `~` means your user home directory. If the agent runs in WSL, a container or a remote machine, install inside that environment.
+For a project installation, set `skill_root` to the corresponding directory in your project. On Windows, create an `equity-research-brief` folder under your chosen installation root and copy `SKILL.md`, `references/`, `assets/` and `agents/` into it; `~` means your user home directory. If the agent runs in WSL, a container or a remote machine, install inside that environment.
 
 The result should be `<installation-root>/equity-research-brief/SKILL.md`. Start a new agent session if the skill is not discovered immediately, then check that it appears in the available skills.
 
@@ -72,7 +73,7 @@ The result should be `<installation-root>/equity-research-brief/SKILL.md`. Start
 
 Agents supporting the [Agent Skills format](https://agentskills.io/specification) can use the same package in their documented skill directory. `agents/openai.yaml` is optional Codex UI metadata; the research instructions do not depend on it. Tool availability and skill discovery differ by host. These installation routes are documented compatibility, not a claim that every host/model has passed an end-to-end research test.
 
-If your tool does not support skill discovery but can read local files, point it to `skills/equity-research-brief/SKILL.md` and ask it to follow the linked references and template. This is manual use, not automatic installation.
+If your tool does not support skill discovery but can read local files, point it to `SKILL.md` and ask it to follow the linked references and template. This is manual use, not automatic installation.
 
 ## Usage
 
@@ -141,9 +142,9 @@ The framework starts with primary evidence and independent reasoning, then uses 
 ## Repository layout
 
 ```text
-README.md
-README.zh-CN.md
-skills/equity-research-brief/
+equity-research-skill/
+├── README.md
+├── README.zh-CN.md
 ├── SKILL.md
 ├── agents/openai.yaml
 ├── assets/brief-template.md
