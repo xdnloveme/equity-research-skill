@@ -199,3 +199,9 @@ git pull --ff-only
 ## 帮助与反馈
 
 由 [xdnloveme](https://github.com/xdnloveme) 维护。安装遇到问题、报告遗漏关键分析或结果不一致时，可以[提交 Issue](https://github.com/xdnloveme/equity-research-skill/issues)。请附上使用的 AI 工具与模型、安装方式、研究请求及简短的报告片段，并移除私人信息和访问凭据。
+
+欢迎贡献改进，贡献范围和验证方式请参阅[贡献指南](CONTRIBUTING.md)（英文）。
+
+## 许可证
+
+本 skill 及其文档采用 [MIT 许可证](LICENSE)。允许使用、修改和再分发，包括商业用途，但需保留版权与许可声明。该许可不授予研究过程中使用的第三方财务数据或来源文档的权利。

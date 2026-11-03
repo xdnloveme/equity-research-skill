@@ -199,3 +199,9 @@ This is a research framework, not a deterministic valuation engine or trading sy
 ## Help and feedback
 
 Maintained by [xdnloveme](https://github.com/xdnloveme). [Open an issue](https://github.com/xdnloveme/equity-research-skill/issues) for installation problems, missing analysis or inconsistent results. Include your agent/model, installation method, request and a short report excerpt; remove private information and credentials.
+
+Contributions are welcome. See the [contribution guide](CONTRIBUTING.md) for scope and validation guidance.
+
+## License
+
+This skill and its documentation are licensed under the [MIT License](LICENSE). You may use, modify and redistribute them, including commercially, while retaining the copyright and license notices. This license does not grant rights to third-party financial data or source documents used during research.

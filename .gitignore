@@ -1,0 +1,14 @@
+# Local research outputs and scratch files
+/outputs/
+/reports/
+/workpapers/
+/tmp/
+*.tmp
+*.log
+.DS_Store
+
+# Local configuration and secrets; allow a sanitized example
+.env
+.env.*
+!.env.example
+/.secrets/
