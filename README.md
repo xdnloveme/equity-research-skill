@@ -21,7 +21,9 @@ A simple request for a company report starts a complete research assignment by d
 
 The main report explains the decision. Workpapers make the supporting analysis traceable. Request Markdown, HTML or another format your agent can produce; the included [report template](assets/brief-template.md) defines the content rather than a fixed visual design.
 
-## Installation: Codex, Claude Code and Cursor
+## Quick start: install and run your first report
+
+**Before you start:** use an AI agent with access to company filings, current prices and news, plus calculation and file-output tools. The skill supplies the research workflow; it does not include a market-data service or subscriptions.
 
 ### 1. Install for your agent
 
@@ -35,7 +37,22 @@ npx skills add xdnloveme/equity-research-skill --skill equity-research-brief
 
 The default scope is the current project. Add `-g` for a personal installation across projects; use `-a codex`, `-a claude-code` or `-a cursor` to select an agent directly. See the [Skills CLI documentation](https://github.com/vercel-labs/skills#install-a-skill) or [view this skill on Skills.sh](https://www.skills.sh/xdnloveme/equity-research-skill/equity-research-brief).
 
-Project installation was verified with Skills CLI 1.7.6 for Codex, Claude Code and Cursor; all eight research-package files matched the repository. This verifies installation, not report quality in every agent.
+### 2. Ask for a report
+
+Open your AI agent in the same project where you installed the skill. In Codex, send:
+
+```text
+Use $equity-research-brief to research [company] ([ticker], [exchange]).
+Use the latest available financial results, share price and material news.
+Deliver a complete report in English, with supporting workpapers.
+```
+
+In Claude Code, start the request with `/equity-research-brief`. In Cursor, select the skill before sending the request.
+
+That's enough to request the full framework. Specify the share class when ambiguous; optionally add an output format, investment horizon or your institution's rating policy. You do not need to repeat the module list or financial-analysis requirements.
+
+<details>
+<summary><strong>Other installation methods: Git, ZIP and project paths</strong></summary>
 
 **Manual installation with Git**
 
@@ -73,19 +90,19 @@ For a project-only installation, use the corresponding directory below instead. 
 
 Start a new session if the skill is not immediately discovered. For WSL, containers or remote sessions, install in the environment where the agent runs. Avoid duplicate installations in personal and project directories.
 
-### 2. Ask for a report
+</details>
 
-In Codex:
+## More ways to use it
 
-```text
-Use $equity-research-brief to research [company] ([ticker], [exchange]).
-Use the latest available financial results, share price and material news.
-Deliver a complete report in English, with supporting workpapers.
-```
+After invoking the skill:
 
-In Claude Code, start the request with `/equity-research-brief`. In Cursor, select the skill before sending the request.
-
-That's enough to request the full framework. Specify the share class when ambiguous; optionally add an output format, investment horizon or your institution's rating policy. You do not need to repeat the module list or financial-analysis requirements.
+| Task | Example request |
+|---|---|
+| Multiple companies | “Produce separate complete reports on [company A] and [company B].” |
+| Earnings update | “Update the report after the latest results. Explain changes to the thesis, forecast and valuation.” |
+| Price refresh | “Refresh the investment judgment at the latest price and check material events since the report.” |
+| Historical research | “Use only information published by [date, time and timezone].” |
+| Report review | “Review this report's evidence, financial reasoning and valuation assumptions.” |
 
 ## How the research works
 
@@ -146,18 +163,6 @@ Each capability connects its findings and calculations to the forecast or invest
 
 </details>
 
-## More ways to use it
-
-After invoking the skill:
-
-| Task | Example request |
-|---|---|
-| Multiple companies | “Produce separate complete reports on [company A] and [company B].” |
-| Earnings update | “Update the report after the latest results. Explain changes to the thesis, forecast and valuation.” |
-| Price refresh | “Refresh the investment judgment at the latest price and check material events since the report.” |
-| Historical research | “Use only information published by [date, time and timezone].” |
-| Report review | “Review this report's evidence, financial reasoning and valuation assumptions.” |
-
 ## Files and portability
 
 | File or directory | Purpose |
@@ -168,6 +173,8 @@ After invoking the skill:
 | [agents/openai.yaml](agents/openai.yaml) | Optional Codex interface metadata; not required by the research framework |
 
 The package uses the [Agent Skills format](https://agentskills.io/specification), with no required proprietary runtime or MCP server. Other compatible agents can load it from their documented skill directories. An agent without skill discovery can use it manually by reading `SKILL.md` and its linked resources. Host compatibility does not mean identical research quality across models or tools.
+
+Project installation was verified with Skills CLI 1.7.6 for Codex, Claude Code and Cursor; all eight research-package files matched the repository. This verifies installation, not report quality in every agent.
 
 ## Updates
 
@@ -185,8 +192,10 @@ git pull --ff-only
 
 Review changes and preserve local customizations before updating. For ZIP or copied installations, replace the installed package with a newly downloaded copy instead.
 
-## Requirements and limitations
-
-The agent needs access to financial disclosures, current prices and news, plus tools for calculations and file output. Data subscriptions, credentials and browsing capabilities are not included.
+## Research limitations
 
 This is a research framework, not a deterministic valuation engine or trading system. Results still require review; scenario endpoints are conditional estimates, not guaranteed price floors or ceilings. Ratings follow the [published conventions](references/valuation-rating.md) unless you specify another policy. The skill does not execute trades or guarantee investment returns.
+
+## Help and feedback
+
+Maintained by [xdnloveme](https://github.com/xdnloveme). [Open an issue](https://github.com/xdnloveme/equity-research-skill/issues) for installation problems, missing analysis or inconsistent results. Include your agent/model, installation method, request and a short report excerpt; remove private information and credentials.
