@@ -1,10 +1,12 @@
-# Equity Research Skill
+# Equity Research Skill — Stock Analysis for AI Agents
 
 **English** / [中文版本](README.zh-CN.md)
 
-Turn company filings, financial results and market evidence into a complete equity research report—with an investment thesis, independent forecasts, valuation scenarios and a clear judgment at the observed share price.
+**Understand the business. Assess the price. Know what to watch.**
 
-Built for **Codex, Claude Code, Cursor and other agents that support Agent Skills**. The framework adapts to the company's business model and operating stage. Reports follow your conversation language unless you request another language.
+Equity Research Skill helps you turn scattered filings, earnings releases and market news into a complete **stock research report**. Understand how a company makes money, what could drive future earnings, and whether the current share price offers an attractive balance of potential return and risk. Get a clear investment view, bear/base/bull price targets, and the developments that would change the conclusion—with sources and calculations you can inspect.
+
+Built for **Codex, Claude Code, Cursor and other agents that support Agent Skills**. Use it to research a new investment, reassess a holding after earnings, or produce separate reports on several companies. The fundamental analysis framework adapts to each company's business model and operating stage; reports follow your conversation language unless you request another language.
 
 ## What you get
 
@@ -19,7 +21,7 @@ A simple request for a company report starts a complete research assignment by d
 
 The main report explains the decision. Workpapers make the supporting analysis traceable. Request Markdown, HTML or another format your agent can produce; the included [report template](assets/brief-template.md) defines the content rather than a fixed visual design.
 
-## Quick start
+## Installation: Codex, Claude Code and Cursor
 
 ### 1. Install for your agent
 
@@ -31,7 +33,7 @@ With Node.js 22.20+ and Git installed, run this from your project and select you
 npx skills add xdnloveme/equity-research-skill --skill equity-research-brief
 ```
 
-The default scope is the current project. Add `-g` for a personal installation across projects; use `-a codex`, `-a claude-code` or `-a cursor` to select an agent directly. See the [Skills CLI documentation](https://github.com/vercel-labs/skills#install-a-skill).
+The default scope is the current project. Add `-g` for a personal installation across projects; use `-a codex`, `-a claude-code` or `-a cursor` to select an agent directly. See the [Skills CLI documentation](https://github.com/vercel-labs/skills#install-a-skill) or [view this skill on Skills.sh](https://www.skills.sh/xdnloveme/equity-research-skill/equity-research-brief).
 
 Project installation was verified with Skills CLI 1.7.6 for Codex, Claude Code and Cursor; all eight research-package files matched the repository. This verifies installation, not report quality in every agent.
 
@@ -97,7 +99,7 @@ That's enough to request the full framework. Specify the share class when ambigu
 
 Detailed research requirements live in [SKILL.md](SKILL.md) and its references. The README is an introduction and setup guide, not a second rulebook.
 
-## Research coverage
+## Equity research and financial statement analysis
 
 <details>
 <summary><strong>17 report sections</strong></summary>

@@ -1,10 +1,12 @@
-# Equity Research Skill
+# Equity Research Skill — AI 个股研报与股票基本面分析
 
 [English](README.md) / **中文版本**
 
-将公司公告、财报和市场信息转化为完整的个股研究报告，给出有依据的投资逻辑、独立盈利预测、估值情景，以及结合当前股价的投资判断。
+**看懂公司，判断价格，知道接下来该关注什么。**
 
-适用于 **Codex、Claude Code、Cursor 及其他支持 Agent Skills 的工具**。框架根据公司的商业模式和经营阶段调整研究重点。报告默认使用当前对话语言，也可以单独指定。
+Equity Research Skill 帮你把分散的公司公告、财报和市场新闻整理成一份完整的**个股研究报告**：这家公司靠什么赚钱，未来盈利由什么驱动，当前股价对应的潜在回报与风险是否值得考虑。你会得到明确的投资判断、悲观／基准／乐观目标价，以及可能改变结论的关键变化；数据来源和计算依据也能逐项复核。
+
+适用于 **Codex、Claude Code、Cursor 及其他支持 Agent Skills 的工具**。无论是研究一只新股票、财报后重新评估持仓，还是分别研究多家公司，都可以直接提出请求。股票基本面分析框架会根据公司的商业模式和经营阶段调整重点，报告默认使用当前对话语言，也可以单独指定。
 
 ## 你会得到什么
 
@@ -19,7 +21,7 @@
 
 正文解释为什么得出这个结论，底稿保留可追溯的分析依据。可以指定 Markdown、HTML 或当前工具支持的其他格式；内置[简报模板](assets/brief-template.md)规定研究内容，不限定视觉样式。
 
-## 快速开始
+## 安装与使用：Codex、Claude Code 和 Cursor
 
 ### 1. 安装到你的 AI 工具
 
@@ -31,7 +33,7 @@
 npx skills add xdnloveme/equity-research-skill --skill equity-research-brief
 ```
 
-默认仅安装到当前项目。添加 `-g` 可进行跨项目的个人安装；使用 `-a codex`、`-a claude-code` 或 `-a cursor` 可直接指定工具。详见 [Skills CLI 文档](https://github.com/vercel-labs/skills#install-a-skill)。
+默认仅安装到当前项目。添加 `-g` 可进行跨项目的个人安装；使用 `-a codex`、`-a claude-code` 或 `-a cursor` 可直接指定工具。详见 [Skills CLI 文档](https://github.com/vercel-labs/skills#install-a-skill)，也可以[在 Skills.sh 查看本技能](https://www.skills.sh/xdnloveme/equity-research-skill/equity-research-brief)。
 
 已用 Skills CLI 1.7.6 验证 Codex、Claude Code 和 Cursor 的项目安装，八份研究包文件均与仓库一致。这验证的是安装过程，不代表每个工具中的研报质量均已验证。
 
@@ -97,7 +99,7 @@ Claude Code 中以 `/equity-research-brief` 开头提出请求；Cursor 中先�
 
 具体研究要求由 [SKILL.md](SKILL.md) 及其参考文件维护。README 负责介绍和上手，不另外定义一套规则。
 
-## 研究覆盖
+## 个股研究与财报分析覆盖
 
 <details>
 <summary><strong>17 个正文模块</strong></summary>
