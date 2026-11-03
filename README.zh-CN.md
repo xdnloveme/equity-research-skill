@@ -202,6 +202,14 @@ git pull --ff-only
 
 欢迎贡献改进，贡献范围和验证方式请参阅[贡献指南](CONTRIBUTING.md)（英文）。
 
-## 许可证
+## 许可证与署名
 
-本 skill 及其文档采用 [MIT 许可证](LICENSE)。允许使用、修改和再分发，包括商业用途，但需保留版权与许可声明。该许可不授予研究过程中使用的第三方财务数据或来源文档的权利。
+版权所有 © 2026 [xdnloveme](https://github.com/xdnloveme)。本 skill 及其文档采用[知识共享署名 4.0 国际许可证（CC BY 4.0）](LICENSE)，允许商用、分享和改编。分享原 skill 或改编版时，需标注原作者 **xdnloveme**，提供[本仓库链接](https://github.com/xdnloveme/equity-research-skill)和[许可证链接](https://creativecommons.org/licenses/by/4.0/)，保留适用声明，并说明修改。署名不得暗示原作者为改编版背书。
+
+建议使用以下署名，改编时另行补充修改说明：
+
+> 基于 [xdnloveme](https://github.com/xdnloveme) 的 [Equity Research Skill](https://github.com/xdnloveme/equity-research-skill)，原作采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 许可。
+
+**生成的研报不强制为本项目署名。**作为额外授权，作者免除使用本 skill 生成的研究报告对本项目的署名要求，包括报告对内置模板的使用。该授权不适用于将 skill、研究指引或模板本身作为可复用材料再发布。第三方财务数据和来源文档仍遵循各自条款。
+
+此前以 MIT 发布的版本仍保留原有许可，本次更换不撤销已经授予的权利。

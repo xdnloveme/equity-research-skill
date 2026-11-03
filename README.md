@@ -202,6 +202,14 @@ Maintained by [xdnloveme](https://github.com/xdnloveme). [Open an issue](https:/
 
 Contributions are welcome. See the [contribution guide](CONTRIBUTING.md) for scope and validation guidance.
 
-## License
+## License and attribution
 
-This skill and its documentation are licensed under the [MIT License](LICENSE). You may use, modify and redistribute them, including commercially, while retaining the copyright and license notices. This license does not grant rights to third-party financial data or source documents used during research.
+Copyright © 2026 [xdnloveme](https://github.com/xdnloveme). This skill and its documentation are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE). Commercial use, sharing and adaptation are permitted. When sharing the skill or an adaptation, credit **xdnloveme**, link to [this repository](https://github.com/xdnloveme/equity-research-skill) and the [license](https://creativecommons.org/licenses/by/4.0/), retain applicable notices, and indicate modifications. Attribution must not imply the author's endorsement.
+
+Suggested credit (add a description of changes when applicable):
+
+> Based on [Equity Research Skill](https://github.com/xdnloveme/equity-research-skill) by [xdnloveme](https://github.com/xdnloveme), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+**Generated research reports do not require attribution to this project.** As an additional permission, the author waives project-attribution requirements for research reports produced with the skill, including use of the bundled report template. This permission does not cover redistribution of the skill, its instructions or its template as reusable materials. Third-party financial data and source documents remain subject to their own terms.
+
+Earlier versions released under MIT remain available under their original license; this change does not revoke those grants.

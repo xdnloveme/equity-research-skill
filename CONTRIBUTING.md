@@ -12,6 +12,10 @@ Fork the repository, make a focused change on a branch, and open a pull request 
 
 Follow the existing ownership in [SKILL.md](SKILL.md): references define the analysis requirements, the template captures their outputs, and the README explains setup and use. Refine the relevant source rather than repeat requirements across files. Preserve the 17-module and eight-capability coverage and keep the framework reusable; company facts, fixed valuation parameters and desired ratings belong outside its instructions.
 
+## Commit messages
+
+Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/): `type(optional-scope): description`. Use `feat` for new capabilities, `fix` for corrections, `docs` for documentation and `chore` for repository maintenance. For example: `docs(readme): clarify installation scope`. Keep commit messages in English and describe the actual change.
+
 ## Check your work
 
 - For documentation changes, check links, commands and relevant English/Chinese consistency. A full research run is unnecessary for copy-only edits.
@@ -21,4 +25,4 @@ Follow the existing ownership in [SKILL.md](SKILL.md): references define the ana
 
 ## License
 
-Contributions are submitted under the repository's [MIT License](LICENSE). Include only content you have the right to contribute; third-party materials retain their own terms.
+Contributions are submitted under the repository's [CC BY 4.0 license](LICENSE), including the additional permission for generated reports described in [License and attribution](README.md#license-and-attribution). Sharing or adapting the skill requires attribution to xdnloveme and a link to the repository; generated research reports do not require project attribution. Include only content you have the right to contribute; third-party materials retain their own terms.
