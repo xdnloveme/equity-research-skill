@@ -23,6 +23,12 @@ Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/): `typ
 - For research behavior changes, use a fresh conversation without earlier reports or ratings and inspect the affected report and workings against the existing acceptance checks in SKILL.md. Report the request, model, evidence cutoff, results and remaining limitations. A different target price alone does not prove improvement or regression.
 - Run `git diff --check` and review the files being committed. Keep generated reports, downloaded source documents, temporary files and credentials out of the PR. The ignore file is a convenience, not a substitute for reviewing the diff.
 
+## Versioning and releases
+
+Use `metadata.version` in `SKILL.md` as the package version; keep the skill name stable. Follow [Semantic Versioning](https://semver.org/): patch for compatible corrections, minor for compatible new capabilities, and major for incompatible changes to supported usage, host requirements or report-delivery expectations. A changed forecast or rating alone is not a compatibility change.
+
+Each release uses an annotated `vX.Y.Z` Git tag and a matching GitHub Release at the commit containing version `X.Y.Z`. Release notes record changes, validation and material limits. Never move a published tag or rewrite released history; publish corrections in a new version. Keep ordinary repository documentation updates on the default branch until the next release.
+
 ## License
 
 Contributions are submitted under the repository's [CC BY 4.0 license](LICENSE), including the additional permission for generated reports described in [License and attribution](README.md#license-and-attribution). Sharing or adapting the skill requires attribution to xdnloveme and a link to the repository; generated research reports do not require project attribution. Include only content you have the right to contribute; third-party materials retain their own terms.

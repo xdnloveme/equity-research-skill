@@ -176,7 +176,9 @@ M00 负责研究范围、数据定义与证据记录，体现在报告头部和�
 
 已用 Skills CLI 1.7.6 验证 Codex、Claude Code 和 Cursor 的项目安装，八份研究包文件均与仓库一致。这验证的是安装过程，不代表每个工具中的研报质量均已验证。
 
-## 更新
+## 版本与更新
+
+当前稳定版为 [v1.0.0](https://github.com/xdnloveme/equity-research-skill/releases/tag/v1.0.0)。已安装版本记录在 `SKILL.md` 的 `metadata.version` 中。上面的安装命令跟随默认分支；需要固定快照时，请使用[带标签的发布版本](https://github.com/xdnloveme/equity-research-skill/releases)。
 
 通过 Skills CLI 安装时，在原项目目录执行以下命令；个人安装添加 `-g`：
 
@@ -192,24 +194,29 @@ git pull --ff-only
 
 更新前审阅变化并保留本地自定义修改。通过 ZIP 或复制安装时，重新下载并替换安装包即可。
 
+**旧 Git 克隆：**仓库在 v1.0.0 发布前整理过提交历史。如果 `git pull --ff-only` 因历史分叉而失败，请先备份本地修改，再克隆到新目录并重新应用自定义修改。
+
 ## 研究边界
 
 这是研究框架，不是确定性估值程序或交易系统，生成结果仍需审阅。情景上下限是有条件的估值，不是股价保证底线或上限。除非另行指定，评级遵循[公开的评级口径](references/valuation-rating.md)。skill 不执行交易，也不保证投资收益。
 
 ## 帮助与反馈
 
-由 [xdnloveme](https://github.com/xdnloveme) 维护。安装遇到问题、报告遗漏关键分析或结果不一致时，可以[提交 Issue](https://github.com/xdnloveme/equity-research-skill/issues)。请附上使用的 AI 工具与模型、安装方式、研究请求及简短的报告片段，并移除私人信息和访问凭据。
-
-欢迎贡献改进，贡献范围和验证方式请参阅[贡献指南](CONTRIBUTING.md)（英文）。
+遇到问题或有建议，可以[提交 Issue](https://github.com/xdnloveme/equity-research-skill/issues)。反馈所需信息及贡献方式见[贡献指南](CONTRIBUTING.md)（英文）。
 
 ## 许可证与署名
 
 版权所有 © 2026 [xdnloveme](https://github.com/xdnloveme)。本 skill 及其文档采用[知识共享署名 4.0 国际许可证（CC BY 4.0）](LICENSE)，允许商用、分享和改编。分享原 skill 或改编版时，需标注原作者 **xdnloveme**，提供[本仓库链接](https://github.com/xdnloveme/equity-research-skill)和[许可证链接](https://creativecommons.org/licenses/by/4.0/)，保留适用声明，并说明修改。署名不得暗示原作者为改编版背书。
 
+**生成的研报不强制为本项目署名**，包括使用内置模板的报告。该额外授权不适用于将 skill、研究指引或模板本身作为可复用材料再发布。
+
+<details>
+<summary>署名示例与许可细节</summary>
+
 建议使用以下署名，改编时另行补充修改说明：
 
 > 基于 [xdnloveme](https://github.com/xdnloveme) 的 [Equity Research Skill](https://github.com/xdnloveme/equity-research-skill)，原作采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 许可。
 
-**生成的研报不强制为本项目署名。**作为额外授权，作者免除使用本 skill 生成的研究报告对本项目的署名要求，包括报告对内置模板的使用。该授权不适用于将 skill、研究指引或模板本身作为可复用材料再发布。第三方财务数据和来源文档仍遵循各自条款。
+作者按上述说明免除生成研报对本项目的署名要求。第三方财务数据和来源文档仍遵循各自条款。此前以 MIT 发布的版本仍保留原有许可，本次更换不撤销已经授予的权利。
 
-此前以 MIT 发布的版本仍保留原有许可，本次更换不撤销已经授予的权利。
+</details>

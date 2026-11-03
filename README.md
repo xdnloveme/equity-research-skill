@@ -176,7 +176,9 @@ The package uses the [Agent Skills format](https://agentskills.io/specification)
 
 Project installation was verified with Skills CLI 1.7.6 for Codex, Claude Code and Cursor; all eight research-package files matched the repository. This verifies installation, not report quality in every agent.
 
-## Updates
+## Versions and updates
+
+The current stable release is [v1.0.0](https://github.com/xdnloveme/equity-research-skill/releases/tag/v1.0.0). The installed version is recorded in `SKILL.md` under `metadata.version`. Installation commands above follow the default branch; use a [tagged release](https://github.com/xdnloveme/equity-research-skill/releases) for a fixed snapshot.
 
 For a Skills CLI installation, run this from the project where you installed it (add `-g` for a personal installation):
 
@@ -192,24 +194,29 @@ git pull --ff-only
 
 Review changes and preserve local customizations before updating. For ZIP or copied installations, replace the installed package with a newly downloaded copy instead.
 
+**Older Git clones:** repository history was reorganized before v1.0.0. If `git pull --ff-only` fails because the histories diverge, back up local changes, clone into a fresh directory and reapply your customizations there.
+
 ## Research limitations
 
 This is a research framework, not a deterministic valuation engine or trading system. Results still require review; scenario endpoints are conditional estimates, not guaranteed price floors or ceilings. Ratings follow the [published conventions](references/valuation-rating.md) unless you specify another policy. The skill does not execute trades or guarantee investment returns.
 
 ## Help and feedback
 
-Maintained by [xdnloveme](https://github.com/xdnloveme). [Open an issue](https://github.com/xdnloveme/equity-research-skill/issues) for installation problems, missing analysis or inconsistent results. Include your agent/model, installation method, request and a short report excerpt; remove private information and credentials.
-
-Contributions are welcome. See the [contribution guide](CONTRIBUTING.md) for scope and validation guidance.
+[Open an issue](https://github.com/xdnloveme/equity-research-skill/issues) for problems or suggestions. See [CONTRIBUTING.md](CONTRIBUTING.md) for useful report details and contribution guidance.
 
 ## License and attribution
 
 Copyright © 2026 [xdnloveme](https://github.com/xdnloveme). This skill and its documentation are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE). Commercial use, sharing and adaptation are permitted. When sharing the skill or an adaptation, credit **xdnloveme**, link to [this repository](https://github.com/xdnloveme/equity-research-skill) and the [license](https://creativecommons.org/licenses/by/4.0/), retain applicable notices, and indicate modifications. Attribution must not imply the author's endorsement.
 
+**Generated research reports do not require attribution to this project**, including reports using the bundled template. This additional permission does not cover redistributing the skill, instructions or template as reusable materials.
+
+<details>
+<summary>Attribution example and licensing details</summary>
+
 Suggested credit (add a description of changes when applicable):
 
 > Based on [Equity Research Skill](https://github.com/xdnloveme/equity-research-skill) by [xdnloveme](https://github.com/xdnloveme), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-**Generated research reports do not require attribution to this project.** As an additional permission, the author waives project-attribution requirements for research reports produced with the skill, including use of the bundled report template. This permission does not cover redistribution of the skill, its instructions or its template as reusable materials. Third-party financial data and source documents remain subject to their own terms.
+The author waives project-attribution requirements for generated research reports as described above. Third-party financial data and source documents remain subject to their own terms. Earlier versions released under MIT remain available under their original license; this change does not revoke those grants.
 
-Earlier versions released under MIT remain available under their original license; this change does not revoke those grants.
+</details>

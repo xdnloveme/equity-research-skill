@@ -2,7 +2,7 @@
 name: equity-research-brief
 description: Write, update, or review listed-company research briefs using business analysis, eight financial-statement capabilities, independent forecasts, valuation, and price-based ratings.
 metadata:
-  version: "2026-11-03.19.1"
+  version: "1.0.0"
 ---
 
 # Equity Research Brief
