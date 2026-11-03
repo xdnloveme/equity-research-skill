@@ -23,7 +23,21 @@ The main report explains the decision. Workpapers make the supporting analysis t
 
 ### 1. Install for your agent
 
-Choose one command for a personal installation. Git must be installed; an existing destination will not be overwritten.
+**Skills CLI (recommended)**
+
+With Node.js 22.20+ and Git installed, run this from your project and select your agent:
+
+```sh
+npx skills add xdnloveme/equity-research-skill --skill equity-research-brief
+```
+
+The default scope is the current project. Add `-g` for a personal installation across projects; use `-a codex`, `-a claude-code` or `-a cursor` to select an agent directly. See the [Skills CLI documentation](https://github.com/vercel-labs/skills#install-a-skill).
+
+Project installation was verified with Skills CLI 1.7.6 for Codex, Claude Code and Cursor; all eight research-package files matched the repository. This verifies installation, not report quality in every agent.
+
+**Manual installation with Git**
+
+Alternatively, choose one command below for a personal installation. An existing destination will not be overwritten. Use one installation method to avoid duplicates.
 
 **Codex**
 
@@ -155,7 +169,13 @@ The package uses the [Agent Skills format](https://agentskills.io/specification)
 
 ## Updates
 
-For a Git installation, run this inside the installed `equity-research-brief` directory:
+For a Skills CLI installation, run this from the project where you installed it (add `-g` for a personal installation):
+
+```sh
+npx skills update equity-research-brief
+```
+
+For a manual Git installation, run this inside the installed `equity-research-brief` directory:
 
 ```sh
 git pull --ff-only

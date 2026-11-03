@@ -23,7 +23,21 @@
 
 ### 1. 安装到你的 AI 工具
 
-选择一条命令进行个人安装。需要已安装 Git；目标目录已存在时，克隆操作不会覆盖它。
+**Skills CLI（推荐）**
+
+安装 Node.js 22.20+ 和 Git 后，在项目目录运行以下命令，选择你的 AI 工具：
+
+```sh
+npx skills add xdnloveme/equity-research-skill --skill equity-research-brief
+```
+
+默认仅安装到当前项目。添加 `-g` 可进行跨项目的个人安装；使用 `-a codex`、`-a claude-code` 或 `-a cursor` 可直接指定工具。详见 [Skills CLI 文档](https://github.com/vercel-labs/skills#install-a-skill)。
+
+已用 Skills CLI 1.7.6 验证 Codex、Claude Code 和 Cursor 的项目安装，八份研究包文件均与仓库一致。这验证的是安装过程，不代表每个工具中的研报质量均已验证。
+
+**通过 Git 手动安装**
+
+也可以选择下列一条命令进行个人安装。目标目录已存在时，克隆操作不会覆盖它。选择一种安装方式即可，避免重复安装。
 
 **Codex**
 
@@ -155,7 +169,13 @@ M00 负责研究范围、数据定义与证据记录，体现在报告头部和�
 
 ## 更新
 
-通过 Git 安装时，在已安装的 `equity-research-brief` 目录中执行：
+通过 Skills CLI 安装时，在原项目目录执行以下命令；个人安装添加 `-g`：
+
+```sh
+npx skills update equity-research-brief
+```
+
+通过 Git 手动安装时，在已安装的 `equity-research-brief` 目录中执行：
 
 ```sh
 git pull --ff-only
