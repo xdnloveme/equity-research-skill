@@ -1,0 +1,4 @@
+interface:
+  display_name: "Equity Research Brief"
+  short_description: "Business, financial analysis, valuation, and price-based ratings"
+  default_prompt: "Use $equity-research-brief to research the specified listed company using verifiable evidence, all 17 modules and eight financial capabilities, and explicit valuation and rating rules; write the report in the user's requested or conversational language."
